@@ -1,4 +1,0 @@
-# .gitignore for set-csproj-version
-node_modules/
-**/obj/
-**/bin/
