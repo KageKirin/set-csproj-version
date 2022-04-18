@@ -1,0 +1,34 @@
+name: 'Set CSProj Version'
+description: 'Sets the current version to a given .csproj'
+branding:
+  icon: anchor
+  color: blue
+inputs:
+  file:
+    description: |
+      'The .csproj from which to read/write the version.'
+      'Set if you need to read a different file / or different folder.'
+    required: true
+  regex:
+    description: |
+      'ECMAScript Regular Expression to parse the version string for verification.'
+      'Defaults to being semver, i.e. "major.minor.patch"'
+      'Set if you to be compatible with a different, non-semver format.'
+    required: false
+    default: '^(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)(\.(?<patch>0|[1-9]\d*))?(?:-(?<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
+  xpath:
+    description: |
+      'XPath to version element.'
+    required: false
+    default: '//PropertyGroup/Version'
+  version:
+    description: |
+      'The semver version to set.'
+      'Version has to be compatible to the provided regex.'
+    required: true
+outputs:
+  version:
+    description: 'Verified and set version string'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
