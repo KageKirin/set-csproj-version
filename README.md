@@ -20,19 +20,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          token: $ {{ secrets.GITHUB_TOKEN }}
 
       - name: Set version
         id: package_version
-        uses: KageKirin/set-csproj-version@v0
+        uses: KageKirin/set-csproj-version@latest
         with:
           file: src/a_project.csproj
           version: ${{ github.ref_name }}
 
       - name: Commit new version
         run: |
-          git commit -am "CI: update version from tag"
-          git push https://${{ github.token }}@github.com/OWNER/REPO
+          git commit -am "CI: set version to ${{ steps.package_version.outputs.version }}"
+          git tag -m "CI: create new tag" v${{ steps.package_version.outputs.version }}
+          git push --follow-tags
 ```
 
 ## Inputs
