@@ -2,7 +2,7 @@ name: Set CSProj Version
 description: Sets the current version to a given .csproj
 branding:
   icon: anchor
-  color: blue
+  color: yellow
 inputs:
   file:
     description: |
@@ -34,5 +34,5 @@ outputs:
   version:
     description: Verified and set version string
 runs:
-  using: node16
+  using: node20
   main: dist/index.js
